@@ -1,16 +1,25 @@
 <template>
+  <header>
+    <nav>
+      <ul class="nav-item">
+        <li><img class="logo" src="./assets/build-a-bot-logo.png" /> Build-a-Bot</li>
+      </ul>
+    </nav>
+  </header>
   <main>
-    <HomePage />
+    <RobotBuilder />
   </main>
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue';
+import RobotBuilder from './build/RobotBuilder.vue';
+
+// import HomePage from './home/HomePage.vue';
 
 export default {
   name: 'App',
   components: {
-    HomePage,
+    RobotBuilder,
   },
 };
 </script>
@@ -36,5 +45,33 @@ main {
   max-width: 1024px;
   min-height: 300px;
   background: whitesmoke;
+}
+
+header {
+  background-color: black;
+  width: 1084px;
+  margin: 0 auto;
+  color: whitesmoke;
+}
+ul {
+  padding: 3px;
+  display: flex;
+  list-style: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-item {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 22px;
+  border-right: 1px solid #bbb;
+}
+.logo {
+  vertical-align: middle;
+  height: 30px;
 }
 </style>
