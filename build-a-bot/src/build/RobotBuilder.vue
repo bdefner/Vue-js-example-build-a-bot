@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="top-row">
-      <div class="top part">
+      <!-- Showing two different ways to apply conditional styling to the top part of the robot. :class Binding is the preferred way. -->
+      <div
+        class="top part"
+        :style="headStyle"
+        :class="{ 'sale-border': selectedRobot.head.onSale }"
+      >
         <div class="robot-name">
           {{ selectedRobot.head.title }}
           <span v-if="selectedRobot.head.onSale" class="kaputt">kaputt!</span>
@@ -35,14 +40,38 @@
         <button class="next-selector">&#9658;</button>
       </div>
     </div>
+    <div>
+      <button @click="decrement()">-</button>
+      {{ count }}
+      <button @click="increment()">+</button>
+    </div>
   </div>
 </template>
 
 <script>
+import { computed, ref } from 'vue';
 import availableParts from '../data/parts';
+import createdHookMixin from './created-hook-mixin';
 
 export default {
+  setup() {
+    const count = ref(0);
+    const increment = () => {
+      count.value += 1;
+    };
+
+    const decrement = () => {
+      count.value -= 1;
+    };
+
+    return {
+      count: computed(() => count.value * 2),
+      increment,
+      decrement,
+    };
+  },
   name: 'RobotBuilder',
+
   data() {
     return {
       availableParts,
@@ -50,6 +79,8 @@ export default {
       selectedLeftArmIndex: 0,
     };
   },
+
+  mixins: [createdHookMixin],
   computed: {
     selectedRobot() {
       return {
@@ -58,6 +89,11 @@ export default {
         torso: this.availableParts.torsos[0],
         rightArm: this.availableParts.arms[0],
         base: this.availableParts.bases[0],
+      };
+    },
+    headStyle() {
+      return {
+        backgroundColor: `${this.selectedRobot.head.onSale ? 'pink' : ''}`,
       };
     },
   },
@@ -87,7 +123,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .robot-name {
   position: absolute;
   top: -80px;
@@ -197,5 +233,9 @@ export default {
 }
 .right .next-selector {
   right: -3px;
+}
+
+.sale-border {
+  border: 3px solid red;
 }
 </style>

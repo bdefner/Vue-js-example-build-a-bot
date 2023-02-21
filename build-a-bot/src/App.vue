@@ -7,6 +7,7 @@
     </nav>
   </header>
   <main>
+    <!-- <RobotBuilder /> -->
     <RobotBuilder />
   </main>
 </template>
@@ -23,6 +24,8 @@ export default {
   },
 };
 </script>
+
+<!-- Global styles -->
 
 <style>
 body {
@@ -46,7 +49,9 @@ main {
   min-height: 300px;
   background: whitesmoke;
 }
+</style>
 
+<style scoped>
 header {
   background-color: black;
   width: 1084px;
